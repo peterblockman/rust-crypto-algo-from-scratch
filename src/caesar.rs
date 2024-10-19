@@ -13,7 +13,9 @@ pub fn encrypt(text: &str, shift: u32) -> Result<String, String> {
         let Some(index) = ALPHABET.find(c) else {
             return Err("Invalid character".to_string());
         };
+        // wrap around if index + shift is greater than ALPHABET.len()
         let new_index = (index + shift as usize) % ALPHABET.len();
+
         let new_char = ALPHABET
             .chars()
             .nth(new_index)
@@ -31,7 +33,7 @@ pub fn encrypt(text: &str, shift: u32) -> Result<String, String> {
 
 pub fn decrypt(cipher: &str, shift: u32) -> Result<String, String> {
     // In a 26-letter alphabet, shifting backward by n is equivalent to shifting forward by 26 - n.
-    encrypt(cipher, 26 - shift)
+    encrypt(cipher, ALPHABET.len() as u32 - shift)
 }
 
 #[test]
