@@ -1,10 +1,10 @@
 # Rust Cryptography Algorithms from Scratch
 
-This project aims to implement various cryptography algorithms from scratch using the Rust programming language without relying on existing cryptography libraries. The goal is to provide a clear, educational resource for understanding cryptographic concepts and their implementation details.
+Implementation of popular cryptographic algorithms from scratch in Rust. My goal is to provide a clear, educational resource for understanding cryptographic concepts and their implementation details. 
 
 ## Algorithms
 
-The following cryptographic algorithms are planned to be implemented (this list may grow over time):
+These algorithms are planned to be implemented (this list may grow over time):
 
 - Symmetric Encryption
   - AES (Advanced Encryption Standard)
@@ -22,7 +22,12 @@ The following cryptographic algorithms are planned to be implemented (this list 
 - Key Exchange
   - Diffie-Hellman
 
+## Documentation
+Run
+```bash
+RUSTDOCFLAGS="--html-in-header katex-header.html" cargo doc --no-deps --open
+```
+
 ## Disclaimer
 
-Please note that these implementations are for educational purposes only. They are not intended for use in production environments or security-critical applications. For real-world cryptographic needs, always use well-established and thoroughly audited cryptographic libraries.
-
+Please note that these implementations are for educational purposes only. They are not intended for use in production environments or security-critical applications. For real-world cryptographic needs, always use well-established and thoroughly audited cryptographic libraries. The documentations are written with the help of ChatGPT.
