@@ -7,10 +7,10 @@ Implementation of popular cryptographic algorithms from scratch in Rust. My goal
 These algorithms are planned to be implemented (this list may grow over time):
 
 - Symmetric Encryption
-  - AES (Advanced Encryption Standard)
-  - DES (Data Encryption Standard)
   - Caesar Cipher
   - Affine Cipher
+  - AES (Advanced Encryption Standard)
+  - DES (Data Encryption Standard)
 - Asymmetric Encryption
   - RSA (Rivest–Shamir–Adleman)
   - ECC (Elliptic Curve Cryptography)
