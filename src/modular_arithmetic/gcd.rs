@@ -8,10 +8,10 @@
 ///
 /// Example of how the division steps work:
 ///
-/// - a / b = q1, r1
-/// - b / r1 = q2, r2
-/// - r1 / r2 = q3, r3
-/// - r2 / r3 = q4, r4
+/// - a / b = q1, remainder r1
+/// - b / r1 = q2, remainder r2
+/// - r1 / r2 = q3, remainder r3
+/// - r2 / r3 = q4, remainder r4
 /// - Continue until `rN = 0` and the corresponding dividend is the GCD.
 ///
 /// Recursive relationship: $\gcd(a, b) = \gcd(b, a \bmod b)$
@@ -31,12 +31,13 @@ pub fn gcd(a: i32, b: i32) -> i32 {
 pub fn gcdi(mut a: i32, mut b: i32) -> i32 {
     while b != 0 {
         // b is carried over as dividend
-        let carry = b;
+        let carry: i32 = b;
         // calculate the remainder
         b = a % b;
         // set a to the carry (b becomes the next dividend)
         a = carry;
     }
+    // at this point the current remainder is 0 => gcd(r_p, r) = gcd(0, r) = r
     a.abs()
 }
 
@@ -169,8 +170,42 @@ pub fn egcd(a: i32, b: i32) -> (i32, i32, i32) {
 ///
 /// # See also
 /// - [Extended Euclidean Algorithm](http://anh.cs.luc.edu/331/notes/xgcd.pdf)
-pub fn egcdi(_a: i32, _b: i32) -> (i32, i32, i32) {
-    unimplemented!()
+pub fn egcdi(mut a: i32, mut b: i32) -> (i32, i32, i32) {
+    // first remainder
+    let x0 = 1;
+    let y0 = 0;
+
+    // second remainder
+    let x1 = 0;
+    let y1 = 1;
+
+    let mut x_p = x0;
+    let mut x = x1;
+    let mut y_p = y0;
+    let mut y = y1;
+
+    while b != 0 {
+        let q = a / b;
+        let new_x = x_p - q * x;
+        let new_y = y_p - q * y;
+
+        let new_a = b;
+        let new_b = a % b;
+
+        // update prev values
+        x_p = x;
+        y_p = y;
+
+        // update current values
+        x = new_x;
+        y = new_y;
+
+        // update a and b
+        a = new_a;
+        b = new_b;
+    }
+
+    return (a, x_p, y_p);
 }
 
 #[test]
@@ -198,4 +233,13 @@ fn test_egcd() {
     assert_eq!(gcd, 1);
     assert_eq!(x_p, -45);
     assert_eq!(y_p, 103);
+}
+
+#[test]
+fn test_egcdi() {
+    let (gcd, x, y) = egcdi(35, 15);
+
+    assert_eq!(gcd, 5);
+    assert_eq!(x, 1);
+    assert_eq!(y, -2);
 }
