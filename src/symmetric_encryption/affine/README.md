@@ -43,12 +43,13 @@ $$y - \beta \equiv \alpha x \mod n$$
 
 $$\alpha^{-1} (y - \beta) \equiv \alpha^{-1} \alpha x \equiv x \mod n$$
 
-**Rearange and distribute: **
+**Rearange and distribute:**
 
-$$x \equiv \alpha^{-1} (y - \beta) \mod n \\
-x \equiv \alpha^{-1}y - \alpha^{-1}\beta \mod n$$
+$$x \equiv \alpha^{-1} (y - \beta) \mod n$$
 
-** We have the decryption function: **
+$$x \equiv \alpha^{-1}y - \alpha^{-1}\beta \mod n$$
+
+** We have the decryption function:**
 
 $$x \equiv \gamma y + \delta \mod n$$
 
@@ -99,10 +100,9 @@ In general, for an affine cipher with encryption key $(\alpha, \beta)$ and decry
 
 - **Decryption key coefficients**:
 
-  $$\begin{align*}
-  \gamma &\equiv \alpha^{-1} \mod n \quad \text{(Multiplicative inverse of } \alpha) \\
-  \delta &\equiv -\gamma \beta \mod n \\
-  \end{align*}$$
+  $\gamma \equiv \alpha^{-1} \mod n \quad \text{(Multiplicative inverse of } \alpha)$
+  
+  $\delta \equiv -\gamma \beta \mod n$
 
 - **Decryption function**:
 
