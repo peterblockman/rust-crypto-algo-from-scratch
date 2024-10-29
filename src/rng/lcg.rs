@@ -5,7 +5,7 @@ struct LCG {
     m: u64,
     a: u64,
     b: u64,
-    x: Wrapping<u64>,
+    s: Wrapping<u64>,
 }
 
 impl LCG {
@@ -14,13 +14,13 @@ impl LCG {
             m,
             a,
             b,
-            x: Wrapping(seed),
+            s: Wrapping(seed),
         }
     }
 
     pub fn next(&mut self) -> u64 {
-        self.x = (self.x * Wrapping(self.a) + Wrapping(self.b)) % Wrapping(self.m);
-        self.x.0
+        self.s = (self.s * Wrapping(self.a) + Wrapping(self.b)) % Wrapping(self.m);
+        self.s.0
     }
 }
 
