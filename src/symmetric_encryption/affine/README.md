@@ -49,7 +49,7 @@ $$x \equiv \alpha^{-1} (y - \beta) \mod n$$
 
 $$x \equiv \alpha^{-1}y - \alpha^{-1}\beta \mod n$$
 
-** We have the decryption function:**
+**We have the decryption function:**
 
 $$x \equiv \gamma y + \delta \mod n$$
 
@@ -57,74 +57,6 @@ Where:
 - $\gamma = \alpha^{-1}$
 - $\delta = -\gamma \beta$
 
-### Example 
-
-Encryption key $(\alpha, \beta) = (3, 7)$:
-
-#### Step 1: Compute $\gamma$
-
-Find $\gamma$ such that:
-
-$$3 \gamma \equiv 1 \mod 26$$
-
-Testing values, we find $\gamma = 9$ because $3 \times 9 = 27 \equiv 1 \mod 26$.
-
-#### Step 2: Compute $\delta$
-
-Using the formula $\delta \equiv -\gamma \beta \mod 26$:
-
-$$\delta \equiv -9 \times 7 \mod 26$$
-
-Compute $-9 \times 7 = -63$.
-
-Now find $-63 \mod 26$:
-
-- Since $26 \times 2 = 52$, and $52 - 63 = -11$, so $-63 \equiv -11 \mod 26$.
-- Adding $26$ to get a positive value: $-11 + 26 = 15$.
-
-So:
-
-$$\delta \equiv 15 \mod 26$$
-
-#### Step 3: Write the Decryption Function
-
-The decryption function is:
-
-$$x \equiv 9 y + 15 \mod 26$$
-
-This matches the decryption formula provided in the text.
-
-### General Formula
-
-In general, for an affine cipher with encryption key $(\alpha, \beta)$ and decryption key $(\gamma, \delta)$:
-
-- **Decryption key coefficients**:
-
-  $\gamma \equiv \alpha^{-1} \mod n \quad \text{(Multiplicative inverse of } \alpha)$
-  
-  $\delta \equiv -\gamma \beta \mod n$
-
-- **Decryption function**:
-
-  $$x \equiv \gamma y + \delta \mod n$$
-
-### Summary
-
-- **To find $\delta$**:
-
-  $$\delta = (-\gamma \beta) \mod n$$
-
-- **Given**:
-
-  - $\alpha$: Encryption multiplier.
-  - $\beta$: Encryption shift.
-  - $\gamma$: Multiplicative inverse of $\alpha$ modulo $n$.
-
-- **Steps**:
-
-  1. Compute $\gamma$ such that $\alpha \gamma \equiv 1 \mod n$.
-  2. Compute $\delta$ using $\delta \equiv -\gamma \beta \mod n$.
-  
 ### Bibliography
 Paar, Christof, and Jan Pelzl. Understanding Cryptography: A Textbook for Students and Practitioners. Springer, 2010.
 
