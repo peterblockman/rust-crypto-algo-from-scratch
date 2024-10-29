@@ -10,6 +10,9 @@ LCG is a popular pseudorandom number generator. It is defined by the following r
 \end{aligned}
 ```
 Where:
-- $s_i$: The current state
-- $s_{i + 1}$: The next state to be computed
+- $s_i$: The current state.
+- $s_{i + 1}$: The next state to be computed.
 - a, b, and m are integer constants.
+
+### Bibliography
+Paar, Christof, and Jan Pelzl. Understanding Cryptography: A Textbook for Students and Practitioners. Springer, 2010.
