@@ -126,3 +126,12 @@ Therefore, we initialize:
     let mut y = y1;
 
 ```
+
+# Modular Inverse
+
+The modular inverse of $a$ modulo $m$ is the integer $x$ such that:
+
+```math
+a \times x \equiv 1 \pmod{m}
+```
+
