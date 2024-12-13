@@ -1,7 +1,7 @@
 // Linear Congruential Generator
 use std::num::Wrapping;
 
-struct LCG {
+pub struct LCG {
     m: u64,
     a: u64,
     b: u64,

@@ -1,24 +1,26 @@
 use std::{
-    borrow::Cow,
     fmt::{self, Debug},
     num::ParseIntError,
+    str::Utf8Error,
 };
 
+use thiserror::Error;
+
 #[derive(Debug)]
-pub struct Hex<'a>(Cow<'a, [u8]>);
+pub struct Hex<'a>(&'a [u8]);
 
 impl<'a> Hex<'a> {
-    pub fn new<T: ?Sized + Debug + AsRef<[u8]>>(data: &'a T) -> Self {
+    pub fn new<T: ?Sized + Debug + AsRef<[u8]>>(data: &'a T) -> Result<Self, HexError> {
         let bytes = data.as_ref();
 
         // Check if it's a hex string
         if bytes.iter().all(|&c| c.is_ascii_hexdigit()) && bytes.len() % 2 == 0 {
-            let parsed = Self::hex_to_bytes(bytes).expect("Invalid hex string");
+            let parsed = Self::hex_to_bytes(bytes)?;
             // use Box::leak to extend the lifetime
-            return Self(Cow::Owned(parsed));
+            Ok(Self(Box::leak(parsed.into_boxed_slice())))
+        } else {
+            Ok(Self(bytes))
         }
-
-        Self(Cow::Borrowed(bytes))
     }
 }
 
@@ -37,15 +39,11 @@ impl Hex<'_> {
         &self.0
     }
 
-    pub fn into_owned(self) -> Hex<'static> {
-        Hex(Cow::Owned(self.0.into_owned()))
-    }
-
-    /// convert each byte into bits according msb-first order
+    /// convert hex to bits in msb-first order
     pub fn to_bits_msb(&self) -> Vec<u8> {
         let mut bits = Vec::with_capacity(self.0.len() * 8);
 
-        for byte in &*self.0 {
+        for byte in self.0 {
             for i in (0..8).rev() {
                 bits.push((byte >> i) & 1);
             }
@@ -54,11 +52,14 @@ impl Hex<'_> {
         bits
     }
 
+    /// convert hex to bits in lsb-first order
+    /// The bytes sequence is reversed first
+    /// then each byte is converted to bits (bits are in msb-first order)
     pub fn to_bits_lsb(&self) -> Vec<u8> {
         let mut bits = Vec::with_capacity(self.0.len() * 8);
 
-        for byte in &*self.0 {
-            for i in 0..8 {
+        for byte in self.0.iter().rev() {
+            for i in (0..8).rev() {
                 bits.push((byte >> i) & 1);
             }
         }
@@ -68,24 +69,36 @@ impl Hex<'_> {
 
     // ref: https://stackoverflow.com/a/52992629/10104154
     // convert hex string to bytes (ASCII values)
-    pub fn hex_to_bytes(hex: &[u8]) -> Result<Vec<u8>, ParseIntError> {
+    pub fn hex_to_bytes(hex: &[u8]) -> Result<Vec<u8>, HexError> {
         (0..hex.len())
             .step_by(2)
-            .map(|i| {
+            .try_fold(Vec::new(), |mut acc, i| {
                 let pair = &hex[i..i + 2];
-                let hex_str = std::str::from_utf8(pair).unwrap();
-                u8::from_str_radix(hex_str, 16)
+                let hex_str = std::str::from_utf8(pair)?;
+                let byte = u8::from_str_radix(hex_str, 16)?;
+                acc.push(byte);
+                Ok(acc)
             })
-            .collect()
     }
+}
+
+#[derive(Debug, Error, PartialEq)]
+pub enum HexError {
+    #[error("Invalid hex string")]
+    InvalidHexString,
+
+    #[error("Parse int error: {0}")]
+    ParseIntError(#[from] ParseIntError),
+
+    #[error("Utf8 error: {0}")]
+    Utf8Error(#[from] Utf8Error),
 }
 
 #[test]
 fn test_hex() {
     let text = "hello";
     let hex_string = "68656C6C6F";
-    let hex = Hex::new(&text);
-    assert!(matches!(hex.0, Cow::Borrowed(_)));
+    let hex = Hex::new(&text).unwrap();
     assert_eq!(format!("{}", hex), hex_string);
 
     let bits = hex.to_bits_msb();
@@ -97,9 +110,8 @@ fn test_hex() {
         ]
     );
 
-    let hex = hex.into_owned();
-    assert!(matches!(hex.0, Cow::Owned(_)));
-
-    let hex = Hex::new(&hex_string);
-    assert!(matches!(hex.0, Cow::Owned(_)));
+    let hex = Hex::new(&[0x68, 0x65, 0x6C, 0xFD, 0xFA]).unwrap();
+    assert_eq!(format!("{}", hex), "68656CFDFA");
 }
+
+// TODO: test errors

@@ -179,6 +179,7 @@ pub fn egcdi(mut a: i32, mut b: i32) -> (i32, i32, i32) {
     let x1 = 0;
     let y1 = 1;
 
+    // set initial values
     let mut x_p = x0;
     let mut x = x1;
     let mut y_p = y0;
