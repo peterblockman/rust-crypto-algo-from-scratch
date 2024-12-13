@@ -117,12 +117,18 @@ impl<'a> Trivium<'a> {
     }
 
     pub fn encrypt(&mut self, plain_text: &[u8]) -> Result<Vec<u8>, TriviumError> {
+        if self.count < 1152 {
+            return Err(TriviumError::NotWarmedUp);
+        }
         let plain_text_bits = Bits::new(plain_text)?;
 
         Ok(plain_text_bits.xor(&self.key_stream)?)
     }
 
     pub fn decrypt(&mut self, cipher_text: &[u8]) -> Result<Vec<u8>, TriviumError> {
+        if self.count < 1152 {
+            return Err(TriviumError::NotWarmedUp);
+        }
         let cipher_text_bits = Bits::new(cipher_text)?;
 
         Ok(cipher_text_bits.xor(&self.key_stream)?)
@@ -136,8 +142,12 @@ pub enum TriviumError {
 
     #[error("Invalid key length: expected 10 bytes, got {0} bytes")]
     InvalidKeyLength(usize),
+
     #[error("Invalid IV length: expected 10 bytes, got {0} bytes")]
     InvalidIVLength(usize),
+
+    #[error("Trivium is not warmed up")]
+    NotWarmedUp,
 }
 
 #[test]
@@ -208,10 +218,16 @@ fn test_trivium_errors() {
     let iv_bits = iv_hex.to_bits_lsb();
 
     let mut trivium = Trivium::new(&key_bits, &iv_bits).unwrap();
-    let encrypt = trivium.encrypt(&[0, 1, 2]).unwrap_err();
-    assert_eq!(encrypt, TriviumError::BitsError(BitsError::InvalidBit(2)));
+    let err = trivium.encrypt(&[0, 1, 2]).unwrap_err();
+    assert_eq!(err, TriviumError::NotWarmedUp);
 
-    let mut trivium = Trivium::new(&key_bits, &iv_bits).unwrap();
-    let decrypt = trivium.decrypt(&[0, 1, 2]).unwrap_err();
-    assert_eq!(decrypt, TriviumError::BitsError(BitsError::InvalidBit(2)));
+    let err = trivium.decrypt(&[0, 1, 2]).unwrap_err();
+    assert_eq!(err, TriviumError::NotWarmedUp);
+
+    trivium.warm_up();
+    let err = trivium.encrypt(&[0, 1, 2]).unwrap_err();
+    assert_eq!(err, TriviumError::BitsError(BitsError::InvalidBit(2)));
+
+    let err = trivium.decrypt(&[0, 1, 2]).unwrap_err();
+    assert_eq!(err, TriviumError::BitsError(BitsError::InvalidBit(2)));
 }
