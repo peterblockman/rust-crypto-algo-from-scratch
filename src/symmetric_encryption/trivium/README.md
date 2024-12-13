@@ -31,7 +31,9 @@ For $i = 1$ to $N$:
 	$(s_{178}, s_{179}, \ldots, s_{288}) \gets (0, \ldots, 0, 1, 1, 1)$
 
 2. Perform 4 full rotations over the state (without generating keystream bits):
-	$\text{for } i = 1 \text{ to } 4 \cdot 288 \text{ do}$
+	
+    $\text{for } i = 1 \text{ to } 4 \cdot 288 \text{ do}$
+    
 	1. Update $t_1, t_2, t_3$:
 		
         $t_1 \gets s_{66} + s_{91} \cdot s_{92} + s_{93} + s_{171}$
