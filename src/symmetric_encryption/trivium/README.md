@@ -1,4 +1,5 @@
 # Trivium
+<img src="../../../images/trivium-circuit.png" alt="Trivium Circuit"/>
 
 ## Algorithm:
 For $i = 1$ to $N$:
@@ -43,3 +44,4 @@ De Cannière, Christophe, and Bart Preneel. "Trivium: A Stream Cipher Constructi
 
 Paar, Christof, and Jan Pelzl. Understanding Cryptography: A Textbook for Students and Practitioners. Springer, 2010.
 
+Image: https://youtu.be/YCnUKCki_rg?si=w8F02K3jg50yUwNI&t=234
