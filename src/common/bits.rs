@@ -25,7 +25,7 @@ impl<'a> Bits<'a> {
     }
 
     /// Construct bytes from their 8 bits.
-    /// the bytes are in msb-first order
+    /// the bytes can be in msb-first order or lsb-first order (TODO test this)
     /// The individual bits chunks are in msb-first order
     pub fn as_vec_bytes(&self) -> Vec<u8> {
         self.0
