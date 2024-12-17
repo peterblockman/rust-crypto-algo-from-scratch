@@ -8,7 +8,6 @@ use super::hex::Hex;
 pub struct Bits<'a>(Cow<'a, [u8]>);
 
 impl<'a> Bits<'a> {
-    /// if size is passed, the data input bytes should be in msb-first order
     pub fn new<T: ?Sized + AsRef<[u8]>>(data: &'a T) -> Result<Self, BitsError> {
         let bits_ref = data.as_ref();
         bits_ref.iter().try_for_each(|bit| {
