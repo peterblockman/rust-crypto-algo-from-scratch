@@ -7,14 +7,14 @@ Implementation of popular cryptographic algorithms from scratch in Rust. The goa
 These algorithms are planned to be implemented (this list may grow over time):
 
 - Modular Arithmetic
-  - [GCD (Greatest Common Divisor)](src/modular_arithmetic/README.md#recursive-extended-euclidean-algorithm)
-  - [Modular Inverse](src/modular_arithmetic/README.md#modular-inverse)
+  - [GCD (Greatest Common Divisor)](src/modular_arithmetic/)
+  - [Modular Inverse](src/modular_arithmetic/)
 - Random Number Generators
-  - [LCG (Linear Congruential Generator)](src/rng/lcg/README.md)
+  - [LCG (Linear Congruential Generator)](src/rng/lcg)
 - Symmetric Encryption
-  - [Caesar Cipher](src/symmetric_encryption/caesar/README.md)
-  - [Affine Cipher](src/symmetric_encryption/affine/README.md)
-  - [Trivium](src/symmetric_encryption/trivium/README.md)
+  - [Caesar Cipher](src/symmetric_encryption/caesar)
+  - [Affine Cipher](src/symmetric_encryption/affine)
+  - [Trivium](src/symmetric_encryption/trivium)
   - AES (Advanced Encryption Standard)
   - DES (Data Encryption Standard)
 - Asymmetric Encryption
