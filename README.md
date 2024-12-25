@@ -10,7 +10,7 @@ These algorithms are planned to be implemented (this list may grow over time):
   - [GCD (Greatest Common Divisor)](src/modular_arithmetic/)
   - [Modular Inverse](src/modular_arithmetic/)
 - Random Number Generators
-  - [LCG (Linear Congruential Generator)](src/rng/lcg)
+  - [LCG (Linear Congruential Generator)](src/rng/)
 - Symmetric Encryption
   - [Caesar Cipher](src/symmetric_encryption/caesar)
   - [Affine Cipher](src/symmetric_encryption/affine)
