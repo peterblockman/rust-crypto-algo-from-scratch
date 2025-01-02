@@ -1,5 +1,10 @@
 # Rust Cryptography Algorithms from Scratch
 
+**Disclaimer**  
+*Please note that these implementations are for educational purposes only. They are not intended for use in production environments or security-critical applications. For real-world cryptographic needs, always use well-established and thoroughly audited cryptographic libraries.*
+
+---
+
 Implementation of popular cryptographic algorithms from scratch in Rust. The goal is to provide a clear, educational resource for understanding cryptographic concepts and their implementation details. 
 
 ## Algorithms
@@ -27,8 +32,3 @@ These algorithms are planned to be implemented (this list may grow over time):
   - DSA (Digital Signature Algorithm)
 - Key Exchange
   - Diffie-Hellman
-
-
-## Disclaimer
-
-Please note that these implementations are for educational purposes only. They are not intended for use in production environments or security-critical applications. For real-world cryptographic needs, always use well-established and thoroughly audited cryptographic libraries. 
