@@ -14,9 +14,9 @@ gcd(a, b) = a \times x + b \times y
 
     If $b = 0$, the GCD is $a$, and the coefficients are $x = 1$ and $y = 0$:
 
-    ```math
-    \gcd(a, 0) = a = a \times 1 + 0 \times 0
-    ```
+```math
+\gcd(a, 0) = a = a \times 1 + 0 \times 0
+```
 
 2. **Recursive Case**:
     
