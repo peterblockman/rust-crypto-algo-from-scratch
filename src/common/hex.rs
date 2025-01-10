@@ -6,7 +6,7 @@ use std::{
 
 use thiserror::Error;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Hex<'a>(&'a [u8]);
 
 impl<'a> Hex<'a> {
@@ -82,6 +82,12 @@ impl Hex<'_> {
     }
 }
 
+impl From<Hex<'_>> for u64 {
+    fn from(hex: Hex<'_>) -> Self {
+        hex.0.iter().fold(0, |acc, &byte| (acc << 8) | byte as u64)
+    }
+}
+
 #[derive(Debug, Error, PartialEq)]
 pub enum HexError {
     #[error("Invalid hex string")]
@@ -112,6 +118,12 @@ fn test_hex() {
 
     let hex = Hex::new(&[0x68, 0x65, 0x6C, 0xFD, 0xFA]).unwrap();
     assert_eq!(format!("{}", hex), "68656CFDFA");
+}
+
+#[test]
+fn test_hex_to_u64() {
+    let hex = Hex::new("68656CFDFA").unwrap();
+    assert_eq!(u64::from(hex), 448378240506);
 }
 
 // TODO: test errors
