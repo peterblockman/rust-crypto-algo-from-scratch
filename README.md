@@ -20,8 +20,8 @@ These algorithms are planned to be implemented (this list may grow over time):
   - [Caesar Cipher](src/symmetric_encryption/caesar)
   - [Affine Cipher](src/symmetric_encryption/affine)
   - [Trivium](src/symmetric_encryption/trivium)
+  - [DES (Data Encryption Standard)](src/symmetric_encryption/des)
   - AES (Advanced Encryption Standard)
-  - DES (Data Encryption Standard)
 - Asymmetric Encryption
   - RSA (Rivest–Shamir–Adleman)
   - ECC (Elliptic Curve Cryptography)
