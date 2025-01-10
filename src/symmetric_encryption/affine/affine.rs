@@ -1,5 +1,5 @@
 use crate::{
-    modular_arithmetic::mod_inverse::mod_inverse,
+    math::modular_arithmetic::mod_inverse::mod_inverse,
     symmetric_encryption::utils::{alphabet_size_i32, get_char_at_index, get_char_index, ALPHABET},
 };
 

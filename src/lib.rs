@@ -1,4 +1,4 @@
 pub mod common;
-pub mod modular_arithmetic;
+pub mod math;
 pub mod rng;
 pub mod symmetric_encryption;

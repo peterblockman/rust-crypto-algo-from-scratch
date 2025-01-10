@@ -11,9 +11,10 @@ Implementation of popular cryptographic algorithms from scratch in Rust. The goa
 
 These algorithms are planned to be implemented (this list may grow over time):
 
-- Modular Arithmetic
-  - [GCD (Greatest Common Divisor)](src/modular_arithmetic/)
-  - [Modular Inverse](src/modular_arithmetic/)
+- Math
+  - Modular Arithmetic
+    - [GCD (Greatest Common Divisor)](src/math/modular_arithmetic/)
+    - [Modular Inverse](src/math/modular_arithmetic/)
 - Random Number Generators
   - [LCG (Linear Congruential Generator)](src/rng/)
 - Symmetric Encryption
